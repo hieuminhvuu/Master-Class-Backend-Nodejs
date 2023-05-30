@@ -17,11 +17,13 @@ router.use(authenticationV2);
 
 // create new
 router.post("", asyncHandler(productController.createProduct));
-router.put(
+router.patch("/:productId", asyncHandler(productController.updateProduct));
+
+router.post(
     "/publish/:id",
     asyncHandler(productController.publishProductByShop)
 );
-router.put(
+router.post(
     "/unpublish/:id",
     asyncHandler(productController.unPublishProductByShop)
 );

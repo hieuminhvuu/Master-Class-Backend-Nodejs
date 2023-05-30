@@ -137,7 +137,7 @@ const furnitureSchema = new Schema(
 
 module.exports = {
     product: model(DOCUMENT_NAME, productSchema),
-    electronic: model("Electronic", electronicSchema),
-    clothing: model("Clothing", clothingSchema),
-    furniture: model("Furniture", furnitureSchema),
+    electronic: model("electronic", electronicSchema),
+    clothing: model("clothing", clothingSchema),
+    furniture: model("furniture", furnitureSchema),
 };

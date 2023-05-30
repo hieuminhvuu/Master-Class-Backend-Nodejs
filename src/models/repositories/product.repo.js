@@ -1,6 +1,11 @@
 "use strict";
 
-const { product } = require("../../models/product.model");
+const {
+    product,
+    clothing,
+    electronic,
+    furniture,
+} = require("../../models/product.model");
 const { getSelectData, unGetSelectData } = require("../../utils");
 
 const queryProduct = async ({ query, limit, skip }) => {
@@ -51,6 +56,17 @@ const findProduct = async ({ product_id, unSelect }) => {
     return await product.findById(product_id).select(unGetSelectData(unSelect));
 };
 
+const updateProductById = async ({
+    productId,
+    bodyUpdate,
+    model,
+    isNew = true,
+}) => {
+    return await model.findByIdAndUpdate(productId, bodyUpdate, {
+        new: isNew,
+    });
+};
+
 const findAllPublishForShop = async ({ query, limit, skip }) => {
     return await queryProduct({ query, limit, skip });
 };
@@ -87,4 +103,5 @@ module.exports = {
     searchProductByUser,
     findAllProducts,
     findProduct,
+    updateProductById,
 };
