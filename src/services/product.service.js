@@ -32,7 +32,7 @@ class ProductFactory {
 class Product {
     constructor({
         product_name,
-        product_thump,
+        product_thumb,
         product_description,
         product_price,
         product_quantity,
@@ -41,7 +41,7 @@ class Product {
         product_attributes,
     }) {
         this.product_name = product_name;
-        this.product_thump = product_thump;
+        this.product_thumb = product_thumb;
         this.product_description = product_description;
         this.product_price = product_price;
         this.product_quantity = product_quantity;

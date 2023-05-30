@@ -12,7 +12,7 @@ const productSchema = new Schema(
             type: String,
             required: true,
         },
-        product_thump: {
+        product_thumb: {
             type: String,
             required: true,
         },
