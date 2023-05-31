@@ -19,6 +19,7 @@ const {
 } = require("../models/repositories/product.repo");
 const { model } = require("mongoose");
 const { removeUndefinedObject, updateNestedObjectParser } = require("../utils");
+const { insertInventory } = require("../models/repositories/inventory.repo");
 
 class ProductFactory {
     static productRegistry = {}; //key-class
@@ -109,7 +110,17 @@ class Product {
 
     // Create new product
     async createProduct(product_id) {
-        return await product.create({ ...this, _id: product_id });
+        const newProduct = await product.create({ ...this, _id: product_id });
+        if (newProduct) {
+            // add product_stock in inventory collection
+            await insertInventory({
+                productId: newProduct._id,
+                shopId: this.product_shop,
+                stock: this.product_quantity,
+            });
+        }
+
+        return newProduct;
     }
 
     // Update product
@@ -140,16 +151,6 @@ class Clothing extends Product {
     async updateProduct(productId) {
         // 1. remove attr has null, undefined
         const objectParams = removeUndefinedObject(this);
-        // console.log(
-        //     "hehehehe",
-        //     updateNestedObjectParser(
-        //         removeUndefinedObject(this).product_attributes
-        //     )
-        // );
-        // console.log(
-        //     "ahihihi",
-        //     removeUndefinedObject(updateNestedObjectParser(this))
-        // );
         // 2. check where will be update?
         if (objectParams.product_attributes) {
             // update child
